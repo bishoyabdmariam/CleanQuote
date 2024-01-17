@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quotemaker/Config/theme/app_theme.dart';
 import 'package:quotemaker/Core/utils/app_colors.dart';
 import 'package:quotemaker/Core/utils/app_strings.dart';
 class QuoteApp extends StatelessWidget {
@@ -10,10 +11,7 @@ class QuoteApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppStrings.appName,
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
-        useMaterial3: true,
-      ),
+      theme: appTheme(),
     );
   }
 }
