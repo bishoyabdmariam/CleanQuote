@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quotemaker/Core/utils/app_colors.dart';
+import 'package:quotemaker/Core/utils/app_strings.dart';
 import 'package:quotemaker/Core/utils/constants.dart';
+import 'package:quotemaker/Features/random_quote/presentation/widgets/quote_content.dart';
 
 class QuoteScreen extends StatefulWidget {
   const QuoteScreen({super.key});
@@ -9,23 +12,36 @@ class QuoteScreen extends StatefulWidget {
 }
 
 class _QuoteScreenState extends State<QuoteScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: InkWell(
-        onTap: () {
-          Constants.showErrorDialog(context: context, msg: "Error Happened");
-        },
-        child: const Center(
-          child: Text(
-            "Quote",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 25,
-            ),
+  Widget _buildBodyContent() {
+    return Column(
+      children: [
+        const QuoteContent(),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.primary,
+          ),
+          child: const Icon(
+            Icons.refresh,
+            size: 28,
+            color: Colors.white,
           ),
         ),
-      ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppBar appBar = AppBar(
+      title: const Text(AppStrings.appName),
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: _buildBodyContent(),
     );
   }
 }
