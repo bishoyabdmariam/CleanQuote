@@ -23,6 +23,8 @@ dependencies:
   dartz: ^0.10.1
   # check for internet connection and check also that it is work not connected only
   internet_connection_checker: ^1.0.0+1
+  # used to save local data
+  shared_preferences: ^2.2.2
 
 
 
