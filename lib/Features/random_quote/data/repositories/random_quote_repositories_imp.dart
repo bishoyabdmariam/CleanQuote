@@ -23,7 +23,7 @@ class RandomQuoteRepositoriesImp implements RandomQuoteRepositories {
 
   @override
   Future<Either<Failure, Quote>> getRandomQuote()async {
-    if(await networkInfo.getIsConnected()){
+    if(await networkInfo.isConnected){
      try{
        var quote =  await randomQuoteRemoteDataSource.getRandomQuote();
         randomQuoteLocalDataSource.cacheQuote(quote);
