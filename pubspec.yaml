@@ -21,6 +21,8 @@ dependencies:
   equatable: ^2.0.5
   # Purify your Dart code using efficient immutable data structures, monads, lenses and other FP tools , Make Sure to every thing handeled.
   dartz: ^0.10.1
+  # check for internet connection and check also that it is work not connected only
+  internet_connection_checker: ^1.0.0+1
 
 
 

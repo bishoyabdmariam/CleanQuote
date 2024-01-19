@@ -1,9 +1,15 @@
 
 
-abstract class  Random_quoteRemoteDataSource {
+import 'package:quotemaker/Features/random_quote/data/models/random_quote_model.dart';
+
+
+abstract class  RandomQuoteRemoteDataSource {
+
+ Future<RandomQuoteModel> getRandomQuote();
 
  }
 
-class Random_quoteRemoteDataSourceImpl implements Random_quoteRemoteDataSource   {
+class RandomQuoteRemoteDataSourceImpl implements RandomQuoteRemoteDataSource   {
+
   
 }
