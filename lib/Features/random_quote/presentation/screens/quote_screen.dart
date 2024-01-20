@@ -6,6 +6,7 @@ import 'package:quotemaker/Core/utils/app_strings.dart';
 import 'package:quotemaker/Features/random_quote/presentation/cubit/random_quote_cubit.dart';
 import 'package:quotemaker/Features/random_quote/presentation/cubit/random_quote_state.dart';
 import 'package:quotemaker/Features/random_quote/presentation/widgets/quote_content.dart';
+import 'package:quotemaker/Core/widgets/error_widget.dart' as error_widget;
 
 class QuoteScreen extends StatefulWidget {
   const QuoteScreen({super.key});
@@ -36,9 +37,8 @@ class _QuoteScreenState extends State<QuoteScreen> {
           ),
         );
       } else if (state is RandomQuoteStateFailure) {
-        return Column(
-          children: [
-          ],
+        return error_widget.ErrorWidget(
+          onPressed: _getRandomQuote,
         );
       } else if (state is RandomQuoteStateSuccess) {
         return Column(
