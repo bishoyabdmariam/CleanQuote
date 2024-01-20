@@ -1,17 +1,34 @@
- import 'package:equatable/equatable.dart';
- 
- abstract  class Random_quoteState extends Equatable {
- const Random_quoteState();
+import 'package:equatable/equatable.dart';
 
- @override
- List<Object?> get props => [];
+import '../../domain/entities/quote.dart';
 
-}
-
-class Random_quoteStateInitial extends Random_quoteState{
+abstract class RandomQuoteState extends Equatable {
+  const RandomQuoteState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
+class RandomQuoteStateInitial extends RandomQuoteState {}
 
+class RandomQuoteStateLoading extends RandomQuoteState {}
+
+class RandomQuoteStateSuccess extends RandomQuoteState {
+  final Quote quote;
+
+  const RandomQuoteStateSuccess({
+    required this.quote,
+  });
+
+  @override
+  List<Object?> get props => [quote];
+}
+
+class RandomQuoteStateFailure extends RandomQuoteState {
+  final String msg;
+
+  const RandomQuoteStateFailure({required this.msg});
+
+  @override
+  List<Object?> get props => [msg];
+}
