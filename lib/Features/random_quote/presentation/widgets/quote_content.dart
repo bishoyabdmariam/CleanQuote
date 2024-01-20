@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:quotemaker/Config/theme/app_theme.dart';
 import 'package:quotemaker/Core/utils/app_colors.dart';
+import 'package:quotemaker/Features/random_quote/domain/entities/quote.dart';
 
 class QuoteContent extends StatelessWidget {
-  const QuoteContent({super.key});
+  final Quote quote;
+
+  const QuoteContent({
+    super.key,
+    required this.quote,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,24 +26,19 @@ class QuoteContent extends StatelessWidget {
       ),
       child: Column(
         children: [
-           Text(
-            "Mesuring Programming progress by lines of code is like measuring aircraft building progress by weight ",
+          Text(
+            quote.content,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 15,
             ),
-            child: const Text(
-              "Bill Gates",
+            child:  Text(
+              quote.author,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                height: 1.3,
-                fontSize: 22,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ],
