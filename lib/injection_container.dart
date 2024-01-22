@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:quotemaker/Core/api/app_interceptor.dart';
 import 'package:quotemaker/Core/network/network_info.dart';
 import 'package:quotemaker/Features/random_quote/data/data_sources/random_quote_remote_data_sources.dart';
 import 'package:quotemaker/Features/random_quote/data/repositories/random_quote_repositories_imp.dart';
@@ -64,5 +66,16 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
+  sl.registerLazySingleton(() => AppInterceptors());
 
+  sl.registerLazySingleton(
+    () => LogInterceptor(
+      request: true,
+      error: true,
+      requestBody: true,
+      requestHeader: true,
+      responseBody: true,
+      responseHeader: true,
+    ),
+  );
 }
