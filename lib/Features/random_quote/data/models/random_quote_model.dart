@@ -4,7 +4,7 @@ class RandomQuoteModel extends Quote {
 
   const RandomQuoteModel({
     required String author,
-    required int id,
+    required String id,
     required String content,
   }) : super(
           id: id,

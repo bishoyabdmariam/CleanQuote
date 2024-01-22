@@ -28,48 +28,51 @@ class _QuoteScreenState extends State<QuoteScreen> {
   }
 
   Widget _buildBodyContent() {
-    return BlocBuilder<RandomQuoteCubit, RandomQuoteState>(
-        builder: (context, state) {
-      if (state is RandomQuoteStateLoading) {
-        return const Center(
-          child: SpinKitRing(
-            color: Colors.black,
-          ),
-        );
-      } else if (state is RandomQuoteStateFailure) {
-        return error_widget.ErrorWidget(
-          onPressed: _getRandomQuote,
-        );
-      } else if (state is RandomQuoteStateSuccess) {
-        return Column(
-          children: [
-            QuoteContent(quote: state.quote),
-            InkWell(
-              onTap: _getRandomQuote,
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primary,
-                ),
-                child: const Icon(
-                  Icons.refresh,
-                  size: 28,
-                  color: Colors.white,
+    return Center(
+      child: BlocBuilder<RandomQuoteCubit, RandomQuoteState>(
+          builder: (context, state) {
+        if (state is RandomQuoteStateLoading) {
+          return const Center(
+            child: SpinKitPouringHourGlassRefined(
+              color: Colors.black,
+            ),
+          );
+        } else if (state is RandomQuoteStateFailure) {
+          return error_widget.ErrorWidget(
+            onPressed: _getRandomQuote,
+          );
+        } else if (state is RandomQuoteStateSuccess) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              QuoteContent(quote: state.quote),
+              InkWell(
+                onTap: _getRandomQuote,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.primary,
+                  ),
+                  child: const Icon(
+                    Icons.refresh,
+                    size: 28,
+                    color: Colors.white,
+                  ),
                 ),
               ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: SpinKitDancingSquare(
+              color: Colors.black,
             ),
-          ],
-        );
-      } else {
-        return const Center(
-          child: SpinKitDancingSquare(
-            color: Colors.black,
-          ),
-        );
-      }
-    });
+          );
+        }
+      }),
+    );
   }
 
   @override

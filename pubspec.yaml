@@ -27,6 +27,8 @@ dependencies:
   shared_preferences: ^2.2.2
   # loading progress indicator
   flutter_spinkit: ^5.2.0
+  # service locator that help us to decouple the interface from a concrete implementation and to access the concrete implementation from everywhere in your App
+  get_it: ^7.6.7
 
 
 

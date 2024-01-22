@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class Quote extends Equatable {
   final String author;
-  final int id;
+  final String id;
   final String content;
 
   const Quote({
