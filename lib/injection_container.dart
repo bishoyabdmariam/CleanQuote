@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:quotemaker/Core/api/api_consumer.dart';
 import 'package:quotemaker/Core/api/app_interceptor.dart';
+import 'package:quotemaker/Core/api/dio_consumer.dart';
 import 'package:quotemaker/Core/network/network_info.dart';
 import 'package:quotemaker/Features/random_quote/data/data_sources/random_quote_remote_data_sources.dart';
 import 'package:quotemaker/Features/random_quote/data/repositories/random_quote_repositories_imp.dart';
@@ -39,7 +41,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton<RandomQuoteRemoteDataSource>(
     () => RandomQuoteRemoteDataSourceImpl(
-      client: sl(),
+       apiConsumer: sl(),
     ),
   );
 
@@ -50,6 +52,9 @@ Future<void> init() async {
   );
 
   //   Core
+
+  sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(client: sl()));
+
 
   sl.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(internetConnectionChecker: sl()));
@@ -62,7 +67,8 @@ Future<void> init() async {
     () => sharedPreferences,
   );
 
-  sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => Dio());
+
 
   sl.registerLazySingleton(() => InternetConnectionChecker());
 

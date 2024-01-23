@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:quotemaker/Core/utils/app_colors.dart';
 
 class ErrorWidget extends StatelessWidget {
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
 
   const ErrorWidget({
     super.key,
-    this.onPressed,
+    required this.onPressed,
   });
 
   @override
@@ -53,11 +53,7 @@ class ErrorWidget extends StatelessWidget {
             vertical: 12,
           ),
           child: ElevatedButton(
-            onPressed: () {
-              if (onPressed != null) {
-                onPressed;
-              }
-            },
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
               foregroundColor: Colors.white,

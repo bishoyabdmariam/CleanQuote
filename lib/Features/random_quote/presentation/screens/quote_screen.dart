@@ -38,9 +38,7 @@ class _QuoteScreenState extends State<QuoteScreen> {
             ),
           );
         } else if (state is RandomQuoteStateFailure) {
-          return error_widget.ErrorWidget(
-            onPressed: _getRandomQuote,
-          );
+          return error_widget.ErrorWidget(onPressed: () => _getRandomQuote());
         } else if (state is RandomQuoteStateSuccess) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -32,11 +32,11 @@ class RandomQuoteRepositoriesImp implements RandomQuoteRepositories {
         return Left(ServerFailure());
      }
 
-    }else{
-      try{
+    } else {
+      try {
         var cachedQuote = await randomQuoteLocalDataSource.getLastRandomQuote();
         return Right(cachedQuote);
-      }on CacheException{
+      } on CacheException {
         return Left(CacheFailure());
       }
     }

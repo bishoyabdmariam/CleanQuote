@@ -38,28 +38,78 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future get(String path, Map<String, dynamic> queryParam) async {
-    final response = await client.get(path, queryParameters: queryParam);
-    return _dynamicHandleJsonResponse(response);
+  Future get(String path, {Map<String, dynamic>? queryParam}) async {
+    try {
+      final response = await client.get(path, queryParameters: queryParam);
+      return _dynamicHandleJsonResponse(response);
+    } on DioException catch (error) {
+      _dynamicHandleDioException(error);
+    }
   }
 
   @override
-  Future post(String path,
-      {Map<String, dynamic>? queryParam, Map<String, dynamic>? body}) async {
-    final response =
-        await client.post(path, queryParameters: queryParam, data: body);
-    return _dynamicHandleJsonResponse(response);
+  Future post(
+    String path, {
+    Map<String, dynamic>? queryParam,
+    bool formDataIsEnabled = false,
+    Map<String, dynamic>? body,
+  }) async {
+    try {
+      final response = await client.post(
+        path,
+        queryParameters: queryParam,
+        data: formDataIsEnabled ? FormData.fromMap(body!) : body,
+      );
+      return _dynamicHandleJsonResponse(response);
+    } on DioException catch (error) {
+      _dynamicHandleDioException(error);
+    }
   }
 
   @override
   Future put(String path,
       {Map<String, dynamic>? queryParam, Map<String, dynamic>? body}) async {
-    final response = await client.get(path, queryParameters: queryParam);
-    return _dynamicHandleJsonResponse(response);
+    try {
+      final response = await client.get(path, queryParameters: queryParam);
+      return _dynamicHandleJsonResponse(response);
+    } on DioException catch (error) {
+      _dynamicHandleDioException(error);
+    }
   }
 
   _dynamicHandleJsonResponse(Response<dynamic> response) {
     final jsonResponse = json.decode(response.data.toString());
     return jsonResponse;
+  }
+
+  _dynamicHandleDioException(DioException dioException) {
+    switch (dioException.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        throw const FetchDataException();
+      case DioExceptionType.badResponse:
+        switch (dioException.response?.statusCode) {
+          case StatusCode.badRequest:
+            throw const BadRequestException();
+          case StatusCode.conflict:
+            throw const ConflictException();
+          case StatusCode.forbidden:
+          case StatusCode.unAuthorized:
+            throw const UnauthorizedException();
+          case StatusCode.notFound:
+            throw const NotFoundException();
+          case StatusCode.internetServerError:
+            throw const InternalServerErrorException();
+        }
+        break;
+      case DioExceptionType.cancel:
+        break;
+
+      case DioExceptionType.connectionError:
+      case DioExceptionType.unknown:
+      case DioExceptionType.badCertificate:
+        throw const NoInternetConnectionException();
+    }
   }
 }
