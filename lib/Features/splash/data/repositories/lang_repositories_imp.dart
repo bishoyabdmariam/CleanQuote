@@ -11,13 +11,23 @@ class LangRepositoriesImp extends LangRepository {
   LangRepositoriesImp({required this.langLocalDataSource});
 
   @override
-  Future<Either<Failure, bool>> changeLang({required String langCode}) {
-
+  Future<Either<Failure, bool>> changeLang({required String langCode}) async {
+    try {
+      final langIsChanged =
+          await langLocalDataSource.changeLang(langCode: langCode);
+      return Right(langIsChanged);
+    } on Exception {
+      return Left(CacheFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, String?>> getSavedLang() {
-    // TODO: implement getSavedLang
-    throw UnimplementedError();
+  Future<Either<Failure, String?>> getSavedLang() async {
+    try {
+      final langCode = await langLocalDataSource.getSavedLang();
+      return Right(langCode);
+    } on Exception {
+      return Left(CacheFailure());
+    }
   }
 }
