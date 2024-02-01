@@ -22,10 +22,10 @@ class LangRepositoriesImp extends LangRepository {
   }
 
   @override
-  Future<Either<Failure, String?>> getSavedLang() async {
+  Future<Either<Failure, String>> getSavedLang() async {
     try {
       final langCode = await langLocalDataSource.getSavedLang();
-      return Right(langCode);
+      return Right(langCode!);
     } on Exception {
       return Left(CacheFailure());
     }
