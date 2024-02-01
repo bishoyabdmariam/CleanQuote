@@ -1,5 +1,5 @@
 
-import '../../domain/repositories/splash_repositories.dart';
+import '../../domain/repositories/lang_repositories.dart';
 
 class SplashRepositoriesImp extends SplashRepositories  {
   
