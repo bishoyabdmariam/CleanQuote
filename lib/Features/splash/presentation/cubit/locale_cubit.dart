@@ -17,23 +17,25 @@ class LocaleCubit extends Cubit<LocaleState> {
 
   LocaleCubit(
       {required this.changeLangUseCase, required this.getSavedLangUseCase})
-      : super(const ChangeLocaleState(Locale(AppStrings.englishCode)));
+      : super( const ChangeLocaleState(locale: Locale(AppStrings.englishCode)));
 
   String currentLangCode = AppStrings.englishCode;
 
   Future<void> getSavedLang() async {
+    emit(LocaleStateLoading(locale: Locale(currentLangCode)));
     final response = await getSavedLangUseCase.call(NoParams());
     response.fold((failure) => debugPrint(AppStrings.cacheFailure), (value) {
       currentLangCode = value;
-      emit(ChangeLocaleState(Locale(currentLangCode)));
+      emit(ChangeLocaleState(locale: Locale(currentLangCode)));
     });
   }
 
   Future<void> _changeLang(String langCode) async {
+    emit(LocaleStateLoading(locale: Locale(currentLangCode)));
     final response = await changeLangUseCase.call(langCode);
     response.fold((failure) => debugPrint(AppStrings.cacheFailure), (value) {
       currentLangCode = langCode;
-      emit(ChangeLocaleState(Locale(currentLangCode)));
+      emit(ChangeLocaleState(locale:Locale(langCode)));
     });
   }
 

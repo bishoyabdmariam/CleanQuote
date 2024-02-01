@@ -4,16 +4,19 @@ part of 'locale_cubit.dart';
 abstract class LocaleState extends Equatable {
   final Locale locale;
 
-  const LocaleState(
-    this.locale,
-  );
+  const LocaleState({required this.locale});
 
   @override
   List<Object?> get props => [];
 }
 
 class ChangeLocaleState extends LocaleState {
-  const ChangeLocaleState(
-    Locale selectedLocale,
-  ) : super(selectedLocale);
+  @override
+  final Locale locale;
+
+  const ChangeLocaleState({required this.locale}) : super(locale: locale);
+}
+
+class LocaleStateLoading extends LocaleState {
+  const LocaleStateLoading({required super.locale});
 }

@@ -15,13 +15,16 @@ class QuoteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => di.sl<LocaleCubit>())],
+      providers: [
+        BlocProvider(create: (context) => di.sl<LocaleCubit>()..getSavedLang()),
+      ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         buildWhen: (previousState, currentState) {
           return previousState != currentState;
         },
         builder: (context, state) {
           return MaterialApp(
+            locale: state.locale,
             debugShowCheckedModeBanner: false,
             title: AppStrings.appName,
             theme: appTheme(),

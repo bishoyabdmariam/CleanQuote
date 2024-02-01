@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:quotemaker/Config/locale/app_localizations_delegate.dart';
 import 'package:quotemaker/Core/utils/app_colors.dart';
 import 'package:quotemaker/Core/utils/app_strings.dart';
 import 'package:quotemaker/Features/random_quote/presentation/cubit/random_quote_cubit.dart';
 import 'package:quotemaker/Features/random_quote/presentation/cubit/random_quote_state.dart';
 import 'package:quotemaker/Features/random_quote/presentation/widgets/quote_content.dart';
 import 'package:quotemaker/Core/widgets/error_widget.dart' as error_widget;
+import 'package:quotemaker/Features/splash/presentation/cubit/locale_cubit.dart';
+
+import '../../../../Config/locale/app_localizations.dart';
 
 class QuoteScreen extends StatefulWidget {
   const QuoteScreen({super.key});
@@ -76,7 +80,23 @@ class _QuoteScreenState extends State<QuoteScreen> {
   @override
   Widget build(BuildContext context) {
     final AppBar appBar = AppBar(
-      title: const Text(AppStrings.appName),
+      leading: IconButton(
+        onPressed: () {
+          print("A6A");
+          print(AppLocalizations.of(context)!.locale);
+          print(AppLocalizations.of(context)!.isEnLocale);
+          if (AppLocalizations.of(context)!.isEnLocale) {
+            BlocProvider.of<LocaleCubit>(context).toArabic();
+          } else {
+            BlocProvider.of<LocaleCubit>(context).toEnglish();
+          }
+        },
+        icon: Icon(
+          Icons.translate,
+          color: AppColors.primary,
+        ),
+      ),
+      title: Text(AppLocalizations.of(context)!.translate("app_name")!),
     );
 
     return RefreshIndicator(
