@@ -10,7 +10,9 @@ abstract class LangLocalDataSource {
 }
 
 class LangLocalDataSourceImpl implements LangLocalDataSource {
-  late final SharedPreferences sharedPreferences;
+  final SharedPreferences sharedPreferences;
+
+  LangLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
   Future<bool> changeLang({required String langCode}) async {
