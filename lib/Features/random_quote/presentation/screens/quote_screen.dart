@@ -20,6 +20,8 @@ class QuoteScreen extends StatefulWidget {
 }
 
 class _QuoteScreenState extends State<QuoteScreen> {
+
+
   _getRandomQuote() async {
     BlocProvider.of<RandomQuoteCubit>(context).getRandomQuote();
   }
@@ -82,9 +84,6 @@ class _QuoteScreenState extends State<QuoteScreen> {
     final AppBar appBar = AppBar(
       leading: IconButton(
         onPressed: () {
-          print("A6A");
-          print(AppLocalizations.of(context)!.locale);
-          print(AppLocalizations.of(context)!.isEnLocale);
           if (AppLocalizations.of(context)!.isEnLocale) {
             BlocProvider.of<LocaleCubit>(context).toArabic();
           } else {

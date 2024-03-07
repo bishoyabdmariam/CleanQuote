@@ -12,15 +12,6 @@ class Routes {
   static const String favouriteQuoteRoute = "/favouriteQuote";
 }
 
-/*
-this is the normal routing
-
-final routes={
-  Routes.initialRoute : (context) =>const QuoteScreen(),
-  Routes.favouriteQuoteRoute : (context) =>const FavouriteQuoteScreen(),
-};
-*/
-
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {

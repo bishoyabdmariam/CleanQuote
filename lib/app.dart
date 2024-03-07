@@ -28,9 +28,6 @@ class QuoteApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: AppStrings.appName,
             theme: appTheme(),
-            /*
-      routes: routes,
-      initialRoute: Routes.initialRoute,*/
             onGenerateRoute: AppRoutes.onGenerateRoute,
             supportedLocales: AppLocalizationsSetup.supportedLocales,
             localeResolutionCallback:
